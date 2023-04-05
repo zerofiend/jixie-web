@@ -1,0 +1,85 @@
+server:
+  #  ip: 106.14.197.100
+  ip: 211.86.232.75
+  #  ip: localhost
+  port: 9090
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://211.86.232.75:3308/jixiedatabase?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    #    url: jdbc:mysql://106.14.197.100:3306/jixiedatabase?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    #    url: jdbc:mysql://localhost:3306/jixiedatabase?serverTimezone=GMT%2b8&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    #    username: root
+    username: zfiend
+    password: '030212'
+    tomcat:
+      #初始化连接
+      initial-size: 10
+      #最大空闲连接
+      max-idle: 20
+      #最小空闲连接
+      min-idle: 5
+      #最大连接数量
+      max-active: 50
+      #是否在自动回收超时连接的时候打印连接的超时错误
+      log-abandoned: true
+      #是否自动回收超时连接
+      remove-abandoned: true
+      #超时时间(以秒数为单位)
+      remove-abandoned-timeout: 180
+      ##<!-- 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒 -->
+      max-wait: 1000
+      test-while-idle: true
+      #检测数据库的查询语句
+      validation-query: select 1 from dual
+      test-on-borrow: true
+      #每隔五分钟检测空闲超过10分钟的连接
+      min-evictable-idle-time-millis: 600000
+      time-between-eviction-runs-millis: 300000
+    dbcp2:
+      test-on-borrow: true
+      validation-query: SELECT 1
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL
+      connection-timeout: 200000
+      maximum-pool-size: 9000
+      minimum-idle: 300
+      max-lifetime: 30000
+      leak-detection-threshold: 60000
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # 配置swagger的路径
+  redis:
+    port: 6379
+    host: 211.86.232.75
+    #    host: localhost
+    timeout: 5000
+    jedis:
+      pool:
+        # 连接池中的最大空闲连接，默认值也是8。
+        max-idle: 500
+        # 连接池中的最小空闲连接，默认值也是0。
+        min-idle: 50
+        # 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)
+        max-active: 1000
+        # 等待可用连接的最大时间，单位毫秒，默认值为-1，表示永不超时。如果超过等待时间，则直接抛出JedisConnectionException
+        max-wait: 2000
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+#  configuration:
+mybatis-plus:
+  mapper-locations: classpath:**/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+files:
+  upload:
+    #    path: E:/project/JiXieWeb/SpringBoot/file
+    path: /home/xhgw/file/
+#    path: /home/files/
+
